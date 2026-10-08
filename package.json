@@ -1,0 +1,12 @@
+{
+  "name": "visionwatch-ai",
+  "version": "1.0.0",
+  "description": "Root package for Render.com deployment",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "cd visionwatch-ai/client && npm install && npm run build && cd ../server && npm install && npm run build",
+    "start": "cd visionwatch-ai/server && npm run start"
+  }
+}
