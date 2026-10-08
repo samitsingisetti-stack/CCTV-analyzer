@@ -16,15 +16,15 @@ RULES:
 
 export async function uploadToGemini(filePath: string, mimeType: string) {
     try {
-        const uploadResult = await ai.files.upload({ file: filePath, mimeType });
+        const uploadResult = await ai.files.upload({ file: filePath, config: { mimeType } });
         console.log(`Uploaded file ${uploadResult.name} to Gemini`);
         
         // Wait until the file is active
-        let fileState = await ai.files.get({ name: uploadResult.name });
+        let fileState = await ai.files.get({ name: uploadResult.name! });
         while (fileState.state === 'PROCESSING') {
             console.log('Waiting for video processing...');
             await new Promise((resolve) => setTimeout(resolve, 10000));
-            fileState = await ai.files.get({ name: uploadResult.name });
+            fileState = await ai.files.get({ name: uploadResult.name! });
         }
         
         if (fileState.state === 'FAILED') {
